@@ -59,10 +59,10 @@ export class SebienPubService {
       const beneficioDto = beneficiosDto[i];
       const domicilioDto = domiciliosDto[i];
 
-      const existingBeneficiario = await this.beneficiarioRepository.findOne({ where: { curp: beneficiarioDto.curp } });
-    if (existingBeneficiario) {
-      throw new ConflictException(`Ya existe un beneficiario con la CURP: ${beneficiarioDto.curp}`);
-    }
+    //   const existingBeneficiario = await this.beneficiarioRepository.findOne({ where: { curp: beneficiarioDto.curp } });
+    // if (existingBeneficiario) {
+    //   throw new ConflictException(`Ya existe un beneficiario con la CURP: ${beneficiarioDto.curp}`);
+    // }
 
       const beneficiario = new SebienBeneficiario();
       Object.assign(beneficiario, beneficiarioDto);

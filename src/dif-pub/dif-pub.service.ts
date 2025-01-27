@@ -58,16 +58,16 @@ export class DifPubService {
       const beneficioDto = beneficiosDto[i];
       const domicilioDto = domiciliosDto[i];
   
-      console.log(`Processing CURP: ${beneficiarioDto.curp}`);
+      // console.log(`Processing CURP: ${beneficiarioDto.curp}`);
   
-      const existingBeneficiario = await this.beneficiarioRepository.findOne({
-        where: { curp: beneficiarioDto.curp },
-      });
+      // const existingBeneficiario = await this.beneficiarioRepository.findOne({
+      //   where: { curp: beneficiarioDto.curp },
+      // });
   
-      if (existingBeneficiario) {
-        console.log(`Beneficiario with CURP ${beneficiarioDto.curp} already exists.`);
-        throw new ConflictException(`Ya existe un beneficiario con la CURP: ${beneficiarioDto.curp}`);
-      }
+      // if (existingBeneficiario) {
+      //   console.log(`Beneficiario with CURP ${beneficiarioDto.curp} already exists.`);
+      //   throw new ConflictException(`Ya existe un beneficiario con la CURP: ${beneficiarioDto.curp}`);
+      // }
   
       try {
         const beneficiario = new DifBeneficiario();
