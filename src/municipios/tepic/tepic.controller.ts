@@ -44,6 +44,7 @@ export class TepicController {
   async findAll(): Promise<any> {
     return this.tepicService.findAllWithRelations();
   }
+  
   // @Get()
   // findAll() {
   //   return this.tepicService.findAll();

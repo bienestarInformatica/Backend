@@ -91,14 +91,6 @@ export class TepicService {
     return beneficiarios;
   }
 
-  create(createTepicDto: CreateTepicBeneficiarioDto) {
-    return 'This action adds a new tepic';
-  }
-
-  findAll() {
-    return `This action returns all tepic`;
-  }
-
   findOne(id: number) {
     return `This action returns a #${id} tepic`;
   }
