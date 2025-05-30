@@ -1,29 +1,51 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TecualaService } from './tecuala.service';
-import { UpdateTecualaDto } from './dto/update-tecuala.dto';
+import { CreateTecualaBeneficiarioDto } from './dto/create-tecuala-beneficiario.dto';
+import { CreateTecualaBeneficioDto } from './dto/create-tecuala-beneficio.dto';
+import { CreateTecualaDomicilioDto } from './dto/create-tecuala-domicilio.dto';
+import { UpdateTecualaCompletoDto } from './dto/update-tecuala-completo.dto';
 
 @Controller('tecuala')
 export class TecualaController {
-  constructor(private readonly tecualaService: TecualaService) {}
+  constructor(private readonly tecualaService: TecualaService) { }
 
-  // @Post()
-  // create(@Body() createTecualaDto: CreateTecualaDto) {
-  //   return this.tecualaService.create(createTecualaDto);
-  // }
-
-  @Get()
-  findAll() {
-    return this.tecualaService.findAll();
+  @Post()
+  async createWithRelation(
+    @Body() createBeneficiarioDto: CreateTecualaBeneficiarioDto,
+    @Body() createBeneficioDto: CreateTecualaBeneficioDto,
+    @Body() createDomicilioDto: CreateTecualaDomicilioDto,
+  ): Promise<any> {
+    return await this.tecualaService.createWithRelation(
+      createBeneficiarioDto,
+      createBeneficioDto,
+      createDomicilioDto,
+    );
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tecualaService.findOne(+id);
+  @Post('post-excel')
+  async importarExcel(
+    @Body() beneficiarios: CreateTecualaBeneficiarioDto[],
+    @Body() beneficios: CreateTecualaBeneficioDto[],
+    @Body() domicilios: CreateTecualaDomicilioDto[],
+  ) {
+    try {
+      const resultados = await this.tecualaService.createMultipleWithRelation(beneficiarios, beneficios, domicilios);
+      return resultados;
+    } catch (error) {
+      console.error('Error al importar desde Excel:', error);
+      throw error;
+    }
+  }
+
+  @Get('all')
+  // @Auth(Role.OPERATIVO)
+  async findAll(): Promise<any> {
+    return this.tecualaService.findAllWithRelations();
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTecualaDto: UpdateTecualaDto) {
-    return this.tecualaService.update(+id, updateTecualaDto);
+  update(@Param('id') id: string, @Body() updateTecualaCompletoDto: UpdateTecualaCompletoDto) {
+    return this.tecualaService.update(+id, updateTecualaCompletoDto);
   }
 
   @Delete(':id')

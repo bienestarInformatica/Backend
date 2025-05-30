@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import { AmatlanBeneficiario } from './amatlan-cañas-beneficiario.entity';
+import { AmatlanBeneficiario } from './amatlan-beneficiario.entity';
 
 @Entity('identificacion_domicilio_geografico_amatlan')
 export class AmatlanDomicilioBeneficiario {

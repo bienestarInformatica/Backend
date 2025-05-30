@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateJalaDto } from './dto/update-jala.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JalaBeneficiario } from './entities/jala-beneficiario.entity';
 import { JalaBeneficio } from './entities/jala-beneficio.entity';
@@ -8,6 +7,7 @@ import { JalaDomicilioBeneficiario } from './entities/jala-domicilio.entity';
 import { CreateJalaBeneficiarioDto } from './dto/create-jala-beneficiario.dto';
 import { CreateJalaBeneficioDto } from './dto/create-jala-beneficio.dto';
 import { CreateJalaDomicilioDto } from './dto/create-jala-domicilio.dto';
+import { UpdateJalaCompletoDto } from './dto/update-jala-completo.dto';
 
 @Injectable()
 export class JalaService {
@@ -90,25 +90,37 @@ export class JalaService {
     return beneficiarios;
   }
 
-  findAll() {
-    return `This action returns all jala`;
+  async update(
+  id: number,
+  updateDto: UpdateJalaCompletoDto
+): Promise<{ message: string }> {
+  // Actualizar beneficiario
+  const beneficiario = await this.beneficiarioRepository.findOne({
+    where: { id_beneficiario_jala: id },
+    relations: ['beneficios', 'domicilios'],
+  });
+  if (!beneficiario) {
+    throw new NotFoundException(`No se encontró el beneficiario con ID ${id}`);
+  }
+  Object.assign(beneficiario, updateDto.beneficiario);
+  await this.beneficiarioRepository.save(beneficiario);
+
+  // Actualizar beneficio (asumiendo solo uno, ajusta si hay varios)
+  if (beneficiario.beneficios?.length) {
+    const beneficio = beneficiario.beneficios[0];
+    Object.assign(beneficio, updateDto.beneficio);
+    await this.beneficioRepository.save(beneficio);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} jala`;
+  // Actualizar domicilio (asumiendo solo uno, ajusta si hay varios)
+  if (beneficiario.domicilios?.length) {
+    const domicilio = beneficiario.domicilios[0];
+    Object.assign(domicilio, updateDto.domicilio);
+    await this.domicilioRepository.save(domicilio);
   }
 
-  async update(id: number, updateDto: UpdateJalaDto): Promise<{ message: string }> {
-      const beneficiario = await this.beneficiarioRepository.findOne({
-        where: { id_beneficiario_jala: id },
-      });
-      if (!beneficiario) {
-        throw new NotFoundException(`No se encontró el beneficiario con ID ${id}`);
-      }
-      Object.assign(beneficiario, updateDto);
-      await this.beneficiarioRepository.save(beneficiario);
-      return { message: `El beneficiario con ID ${id} fue actualizado correctamente` };
-    }
+  return { message: `El beneficiario con ID ${id} y sus relaciones fueron actualizados correctamente` };
+}
 
   async remove(id: number): Promise<{ message: string }> {
     const beneficiario = await this.beneficiarioRepository.findOne({

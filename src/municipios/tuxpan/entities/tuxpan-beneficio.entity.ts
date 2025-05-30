@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 't
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { TuxpanBeneficiario } from './tuxpan-beneficiario.entity';
 
-@Entity('beneficio_Tuxpan') // Nombre de la tabla en la base de datos
+@Entity('beneficio_tuxpan') // Nombre de la tabla en la base de datos
 export class TuxpanBeneficio {
   @PrimaryGeneratedColumn()
   id_beneficio: number;

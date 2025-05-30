@@ -26,7 +26,6 @@ import { TepicModule } from './municipios/tepic/tepic.module';
 import { AcaponetaModule } from './municipios/acaponeta/acaponeta.module';
 import { TuxpanModule } from './municipios/tuxpan/tuxpan.module';
 import { AhuacatlanModule } from './municipios/ahuacatlan/ahuacatlan.module';
-import { AmatlanCañasModule } from './municipios/amatlan-cañas/amatlan-cañas.module';
 import { BahiaBanderasModule } from './municipios/bahia-banderas/bahia-banderas.module';
 import { CompostelaModule } from './municipios/compostela/compostela.module';
 import { HuajicoriModule } from './municipios/huajicori/huajicori.module';
@@ -40,6 +39,7 @@ import { SanPedroLagunillasModule } from './municipios/san-pedro-lagunillas/san-
 import { SantaMariaOroModule } from './municipios/santa-maria-oro/santa-maria-oro.module';
 import { SantiagoIxcuintlaModule } from './municipios/santiago-ixcuintla/santiago-ixcuintla.module';
 import { TecualaModule } from './municipios/tecuala/tecuala.module';
+import { AmatlanModule } from './municipios/amatlan/amatlan.module';
 
 @Module({
   imports: [
@@ -73,7 +73,6 @@ import { TecualaModule } from './municipios/tecuala/tecuala.module';
     AcaponetaModule,
     TuxpanModule,
     AhuacatlanModule,
-    AmatlanCañasModule,
     BahiaBanderasModule,
     CompostelaModule,
     HuajicoriModule,
@@ -87,6 +86,7 @@ import { TecualaModule } from './municipios/tecuala/tecuala.module';
     SantaMariaOroModule,
     SantiagoIxcuintlaModule,
     TecualaModule,
+    AmatlanModule,
   ],
   controllers: [AppController],
   providers: [AppService],

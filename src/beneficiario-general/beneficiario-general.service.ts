@@ -1,23 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CecanBeneficiario } from 'src/dependencias/cecan-pub/entities/cecan-beneficiario.entity';
-import { CecanBeneficio } from 'src/dependencias/cecan-pub/entities/cecan-beneficio.entity';
-import { CecanDomicilioBeneficiario } from 'src/dependencias/cecan-pub/entities/cecan-domicilio.entity';
 import { DifBeneficiario } from 'src/dependencias/dif-pub/entities/dif-beneficiario.entity';
-import { DifBeneficio } from 'src/dependencias/dif-pub/entities/dif-beneficio.entity';
-import { DifDomicilioBeneficiario } from 'src/dependencias/dif-pub/entities/dif-domicilio.entity';
 import { InjuveBeneficiario } from 'src/dependencias/injuve-pub/entities/injuve-beneficiario.entity';
-import { InjuveBeneficio } from 'src/dependencias/injuve-pub/entities/injuve-beneficio.entity';
-import { InjuveDomicilioBeneficiario } from 'src/dependencias/injuve-pub/entities/injuve-domicilio.entity';
 import { IprovinayBeneficiario } from 'src/dependencias/iprovinay-pub/entities/iprovinay-beneficiario.entity';
-import { IprovinayBeneficio } from 'src/dependencias/iprovinay-pub/entities/iprovinay-beneficio.entity';
-import { IprovinayDomicilioBeneficiario } from 'src/dependencias/iprovinay-pub/entities/iprovinay-domicilio.entity';
 import { SebienBeneficiario } from 'src/dependencias/sebien-pub/entities/sebien-beneficiario.entity';
-import { SebienBeneficio } from 'src/dependencias/sebien-pub/entities/sebien-beneficio.entity';
-import { SebienDomicilioBeneficiario } from 'src/dependencias/sebien-pub/entities/sebien-domicilio.entity';
 import { StjlBeneficiario } from 'src/dependencias/stjl-pub/entities/stjl-beneficiario.entity';
-import { StjlBeneficio } from 'src/dependencias/stjl-pub/entities/stjl-beneficio.entity';
-import { StjlDomicilioBeneficiario } from 'src/dependencias/stjl-pub/entities/stjl-domicilio.entity';
+import { JalaBeneficiario } from 'src/municipios/jala/entities/jala-beneficiario.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -25,40 +14,18 @@ export class BeneficiarioGeneralService {
   constructor(
     @InjectRepository(CecanBeneficiario)
     private beneficiarioCecanRepository: Repository<CecanBeneficiario>,
-    @InjectRepository(CecanBeneficio)
-    private beneficioCecanRepository: Repository<CecanBeneficio>,
-    @InjectRepository(CecanDomicilioBeneficiario)
-    private domicilioCecanRepository: Repository<CecanDomicilioBeneficiario>,
     @InjectRepository(SebienBeneficiario)
     private beneficiarioSebienRepository: Repository<SebienBeneficiario>,
-    @InjectRepository(SebienBeneficio)
-    private beneficioSebienRepository: Repository<SebienBeneficio>,
-    @InjectRepository(SebienDomicilioBeneficiario)
-    private domicilioSebienRepository: Repository<SebienDomicilioBeneficiario>,
     @InjectRepository(DifBeneficiario)
     private beneficiarioDifRepository: Repository<DifBeneficiario>,
-    @InjectRepository(DifBeneficio)
-    private beneficioDifRepository: Repository<DifBeneficio>,
-    @InjectRepository(DifDomicilioBeneficiario)
-    private domicilioDifRepository: Repository<DifDomicilioBeneficiario>,
     @InjectRepository(InjuveBeneficiario)
     private beneficiarioInjuveRepository: Repository<InjuveBeneficiario>,
-    @InjectRepository(InjuveBeneficio)
-    private beneficioInjuveRepository: Repository<InjuveBeneficio>,
-    @InjectRepository(InjuveDomicilioBeneficiario)
-    private domicilioInjuveRepository: Repository<InjuveDomicilioBeneficiario>,
     @InjectRepository(IprovinayBeneficiario)
     private beneficiarioIprovinayRepository: Repository<IprovinayBeneficiario>,
-    @InjectRepository(IprovinayBeneficio)
-    private beneficioIprovinayRepository: Repository<IprovinayBeneficio>,
-    @InjectRepository(IprovinayDomicilioBeneficiario)
-    private domicilioIprovinayRepository: Repository<IprovinayDomicilioBeneficiario>,
     @InjectRepository(StjlBeneficiario)
     private beneficiarioStjlRepository: Repository<StjlBeneficiario>,
-    @InjectRepository(StjlBeneficio)
-    private beneficioStjlRepository: Repository<StjlBeneficio>,
-    @InjectRepository(StjlDomicilioBeneficiario)
-    private domicilioStjlRepository: Repository<StjlDomicilioBeneficiario>,
+    @InjectRepository(JalaBeneficiario)
+    private beneficiarioJalaRepository: Repository<JalaBeneficiario>,
   ) { }
 
   async obtenerCecan(): Promise<any> {
@@ -88,6 +55,10 @@ export class BeneficiarioGeneralService {
       const beneficiariosStjl = await this.beneficiarioStjlRepository.find({
         relations: ['beneficios', 'domicilios'],
       });
+
+      const beneficiariosJala = await this.beneficiarioJalaRepository.find({
+        relations: ['beneficios', 'domicilios'],
+      });
   
       // Concatenar ambos arreglos en uno solo
       const todosBeneficiarios = [
@@ -96,7 +67,8 @@ export class BeneficiarioGeneralService {
         ...beneficiariosDif,
         ...beneficiariosInjuve,
         ...beneficiariosIprovinay,
-        ...beneficiariosStjl
+        ...beneficiariosStjl,
+        ...beneficiariosJala,
       ];
   
       return todosBeneficiarios;

@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { AmatlanBeneficiario } from './amatlan-cañas-beneficiario.entity';
+import { AmatlanBeneficiario } from './amatlan-beneficiario.entity';
 
-@Entity('beneficio_amatlan') // Nombre de la tabla en la base de datos
+@Entity('beneficio_amatlan') 
 export class AmatlanBeneficio {
   @PrimaryGeneratedColumn()
   id_beneficio: number;

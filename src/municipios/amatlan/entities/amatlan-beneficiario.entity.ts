@@ -1,10 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { AmatlanBeneficio } from './amatlan-cañas-beneficio.entity';
-import { AmatlanDomicilioBeneficiario } from './amatlan-cañas-domicilio.entity';
+import { AmatlanBeneficio } from './amatlan-beneficio.entity';
+import { AmatlanDomicilioBeneficiario } from './amatlan-domicilio.entity';
 
-
-@Entity('beneficiario_amatlan') // Nombre de la tabla en la base de datos
+@Entity('beneficiario_amatlan')
 export class AmatlanBeneficiario {
     @PrimaryGeneratedColumn()
     id_beneficiario_amatlan: number;

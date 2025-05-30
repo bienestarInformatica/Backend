@@ -1,15 +1,15 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { JalaService } from './jala.service';
-import { UpdateJalaDto } from './dto/update-jala.dto';
+import { UpdateJalaCompletoDto } from './dto/update-jala-completo.dto';
 import { CreateJalaBeneficiarioDto } from './dto/create-jala-beneficiario.dto';
 import { CreateJalaBeneficioDto } from './dto/create-jala-beneficio.dto';
 import { CreateJalaDomicilioDto } from './dto/create-jala-domicilio.dto';
 
 @Controller('jala')
 export class JalaController {
-  constructor(private readonly jalaService: JalaService) {}
+  constructor(private readonly jalaService: JalaService) { }
 
-  @Post()
+  @Post('post')
   async createWithRelation(
     @Body() createBeneficiarioDto: CreateJalaBeneficiarioDto,
     @Body() createBeneficioDto: CreateJalaBeneficioDto,
@@ -43,14 +43,9 @@ export class JalaController {
     return this.jalaService.findAllWithRelations();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.jalaService.findOne(+id);
-  }
-
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateJalaDto: UpdateJalaDto) {
-    return this.jalaService.update(+id, updateJalaDto);
+  update(@Param('id') id: string, @Body() updateJalaCompletoDto: UpdateJalaCompletoDto) {
+    return this.jalaService.update(+id, updateJalaCompletoDto);
   }
 
   @Delete(':id')

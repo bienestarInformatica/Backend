@@ -20,6 +20,7 @@ import { IprovinayDomicilioBeneficiario } from 'src/dependencias/iprovinay-pub/e
 import { StjlBeneficiario } from 'src/dependencias/stjl-pub/entities/stjl-beneficiario.entity';
 import { StjlBeneficio } from 'src/dependencias/stjl-pub/entities/stjl-beneficio.entity';
 import { StjlDomicilioBeneficiario } from 'src/dependencias/stjl-pub/entities/stjl-domicilio.entity';
+import { JalaBeneficiario } from 'src/municipios/jala/entities/jala-beneficiario.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature(
@@ -42,6 +43,7 @@ import { StjlDomicilioBeneficiario } from 'src/dependencias/stjl-pub/entities/st
       StjlBeneficiario,
       StjlBeneficio,
       StjlDomicilioBeneficiario,
+      JalaBeneficiario,
     ])],
   controllers: [BeneficiarioGeneralController],
   providers: [BeneficiarioGeneralService],
