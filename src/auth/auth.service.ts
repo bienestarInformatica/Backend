@@ -15,6 +15,14 @@ export class AuthService {
     ) { }
 
     async register({ name, lastname, email, password, role, number, dependencia }: RegisterDto) {
+
+        //comprobar si es un correo valido
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            throw new BadRequestException('El correo no es valido');
+        }
+
+
         const user = await this.usersService.findOneByEmail(email);
         if (user) {
             throw new BadRequestException('el usuario ya existe');

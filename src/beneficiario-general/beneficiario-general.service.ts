@@ -78,6 +78,12 @@ export class BeneficiarioGeneralService {
     }
   }  
 
+  //Validar duplicacion de CURP en la BD.
+  async validarCurp(curp: string): Promise<boolean> {
+    const beneficiarios = await this.obtenerCecan();
+    return beneficiarios.some((beneficiario) => beneficiario.curp === curp);
+  }
+
   async obtenerBeneficiarios() {
     const query = `
       SELECT *
